@@ -15,6 +15,8 @@ public class Duke {
                 "    ____________________________________________________________";
         String line = "    ____________________________________________________________\n";
         String command = "null";
+        String commandList[] = new String[100];
+        int num = 0;
 
         System.out.println(greeting);
         while (!command.equals("bye")) {
@@ -23,8 +25,18 @@ public class Duke {
             if (command.equals("bye")) {
                 System.out.println(line + bye);
             }
+            else if(command.equals("list")){
+                System.out.print(line);
+                for(int i=0; i<num; i++){
+                    System.out.println("    " + (i+1) + ". " + commandList[i] );
+                }
+                System.out.println(line);
+
+            }
             else {
-                System.out.println(line + "    " + command + "\n" + line);
+                commandList[num] = command;
+                System.out.println(line + "    " + "added: " + command + "\n" + line);
+                num ++;
             }
         }
     }
