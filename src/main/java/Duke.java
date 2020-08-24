@@ -14,14 +14,14 @@ public class Duke {
         String bye = "     Bye. Hope to see you again soon!\n" +
                 "    ____________________________________________________________";
         String line = "    ____________________________________________________________\n";
-        String command = null;
+        String command = "null";
 
         System.out.println(greeting);
-        while (command != "bye") {
+        while (!command.equals("bye")) {
             Scanner in = new Scanner(System.in);
             command = in.nextLine();
-            if (command == "bye") {
-                System.out.println(bye);
+            if (command.equals("bye")) {
+                System.out.println(line + bye);
             }
             else {
                 System.out.println(line + "    " + command + "\n" + line);
