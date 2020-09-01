@@ -16,7 +16,7 @@ public class Duke {
         String line = "    ____________________________________________________________\n";
         String command = "null";
         Task[] commandList = new Task[100];
-        int num = 0;
+        int taskCount = 0;
 
         System.out.println(greeting);
         while (!command.equals("bye")) {
@@ -24,26 +24,23 @@ public class Duke {
             command = in.nextLine();
             if (command.equals("bye")) {
                 System.out.println(line + bye);
-            }
-            else if(command.equals("list")){
+            } else if(command.equals("list")){
                 System.out.print(line);
                 System.out.println("Here are the tasks in your list:");
-                for(int i=0; i<num; i++){
+                for(int i=0; i<taskCount; i++){
                     System.out.println("    " + (i+1) + "." + commandList[i].getStatusIcon() + commandList[i].task );
                 }
                 System.out.println(line);
-
-            }
-            else if(command.contains("done")){
-                int number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
-                number--;
-                commandList[number].taskDone();
-                System.out.println(line + "    Nice! I've marked this task as done:\n    " + commandList[number].getStatusIcon() + commandList[number].task );
-            }
-            else {
-                commandList[num] = new Task(command);
+            } else if(command.contains("done")){
+                int taskIndex = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+                taskIndex--;
+                commandList[taskIndex].markDone();
+                System.out.println(line + "    Nice! I've marked this task as done:\n    "
+                        + commandList[taskIndex].getStatusIcon() + commandList[taskIndex].task );
+            } else {
+                commandList[taskCount] = new Task(command);
                 System.out.println(line + "    " + "added: " + command + "\n" + line);
-                num ++;
+                taskCount ++;
             }
         }
     }

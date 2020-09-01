@@ -11,7 +11,7 @@ public class Task {
         return (isDone? "[\u2713] " : "[\u2718] ");
     }
 
-    public void taskDone(){
+    public void markDone(){
         isDone = true;
     }
 
