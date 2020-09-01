@@ -15,6 +15,7 @@ public class Duke {
                 "    ____________________________________________________________";
         String line = "    ____________________________________________________________\n";
         String command = "null";
+        String spaces = "    ";
         Task[] commandList = new Task[100];
         int taskCount = 0;
 
@@ -26,9 +27,11 @@ public class Duke {
                 System.out.println(line + bye);
             } else if(command.equals("list")){
                 System.out.print(line);
-                System.out.println("Here are the tasks in your list:");
+                System.out.println(spaces + "Here are the tasks in your list:");
                 for(int i=0; i<taskCount; i++){
-                    System.out.println("    " + (i+1) + "." + commandList[i].getStatusIcon() + commandList[i].task );
+                    System.out.print("    " + (i+1) + ".");
+                    commandList[i].printTask();
+                    System.out.println();
                 }
                 System.out.println(line);
             } else if(command.contains("done")){
@@ -38,8 +41,20 @@ public class Duke {
                 System.out.println(line + "    Nice! I've marked this task as done:\n    "
                         + commandList[taskIndex].getStatusIcon() + commandList[taskIndex].task );
             } else {
-                commandList[taskCount] = new Task(command);
-                System.out.println(line + "    " + "added: " + command + "\n" + line);
+                if(command.contains("todo")) {
+                    commandList[taskCount] = new ToDos(command);
+                }else if(command.contains("deadline")){
+                    commandList[taskCount] = new Deadlines(command);
+                }else if(command.contains("event")){
+                    commandList[taskCount] = new Events(command);
+                }else {
+                    taskCount--;
+                }
+                System.out.println(line + spaces + "Got it. I've added this task: ");
+                System.out.print(spaces + spaces);
+                commandList[taskCount].printTask();
+                System.out.println("\n" + spaces + "Now you have " + (taskCount+1)
+                        + " tasks in the list.\n" + line);
                 taskCount ++;
             }
         }
