@@ -1,7 +1,7 @@
 public class Task {
     public String task;
     private boolean isDone;
-    private TaskType taskType;
+    private final TaskType taskType;
 
     public Task(String task, TaskType taskType){
         this.task = task;

@@ -18,10 +18,10 @@ public class Duke {
         String spaces = "    ";
         Task[] commandList = new Task[100];
         int taskCount = 0;
+        Scanner in = new Scanner(System.in);
 
         System.out.println(greeting);
         while (!command.equals("bye")) {
-            Scanner in = new Scanner(System.in);
             command = in.nextLine();
             if (command.equals("bye")) {
                 System.out.println(line + bye);
@@ -40,22 +40,22 @@ public class Duke {
                 commandList[taskIndex].markDone();
                 System.out.println(line + "    Nice! I've marked this task as done:\n    "
                         + commandList[taskIndex].getStatusIcon() + commandList[taskIndex].task );
-            } else {
+            } else if(command.contains("todo")||command.contains("deadline")||command.contains("event")){
                 if(command.contains("todo")) {
                     commandList[taskCount] = new ToDos(command);
                 }else if(command.contains("deadline")){
                     commandList[taskCount] = new Deadlines(command);
                 }else if(command.contains("event")){
                     commandList[taskCount] = new Events(command);
-                }else {
-                    taskCount--;
                 }
-                System.out.println(line + spaces + "Got it. I've added this task: ");
+                System.out.println(line + spaces + "Got it. I've added this task:");
                 System.out.print(spaces + spaces);
                 commandList[taskCount].printTask();
                 System.out.println("\n" + spaces + "Now you have " + (taskCount+1)
                         + " tasks in the list.\n" + line);
                 taskCount ++;
+            }else{
+                System.out.println("Invalid Command");
             }
         }
     }
