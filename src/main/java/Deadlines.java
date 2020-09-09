@@ -1,15 +1,19 @@
 public class Deadlines extends Task{
     private final String deadline;
 
-    public Deadlines(String command) {
+    public Deadlines(String command) throws EmptyTaskException{
         super(getTask(command), TaskType.D);
         this.deadline = getDeadline(command);
     }
 
-    public static String getTask(String command){
-        int spaceIndex = command.indexOf(" ");
-        int slashIndex = command.indexOf("/");
-        return command.substring(spaceIndex, slashIndex-1);
+    public static String getTask(String command) throws EmptyTaskException{
+        if(((command.replace("deadline", "")).replace(" ", "")).isEmpty()) {
+            throw new EmptyTaskException("deadline");
+        }else {
+            int spaceIndex = command.indexOf(" ");
+            int slashIndex = command.indexOf("/");
+            return command.substring(spaceIndex + 1, slashIndex - 1);
+        }
     }
 
     public static String getDeadline(String command){
