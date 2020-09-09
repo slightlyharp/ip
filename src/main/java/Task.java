@@ -1,12 +1,12 @@
 public class Task {
     public String task;
     private boolean isDone;
-    private final TaskType taskType;
+    private TaskType taskType;
 
     public Task(String task, TaskType taskType){
-        this.task = task;
-        this.isDone = false;
-        this.taskType = taskType;
+            this.task = task;
+            this.isDone = false;
+            this.taskType = taskType;
     }
 
     public String getStatusIcon(){

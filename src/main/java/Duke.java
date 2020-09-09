@@ -41,21 +41,29 @@ public class Duke {
                 System.out.println(line + "    Nice! I've marked this task as done:\n    "
                         + commandList[taskIndex].getStatusIcon() + commandList[taskIndex].task );
             } else if(command.contains("todo")||command.contains("deadline")||command.contains("event")){
-                if(command.contains("todo")) {
-                    commandList[taskCount] = new ToDos(command);
-                }else if(command.contains("deadline")){
-                    commandList[taskCount] = new Deadlines(command);
-                }else if(command.contains("event")){
-                    commandList[taskCount] = new Events(command);
+                try {
+                    if (command.contains("todo")) {
+                        commandList[taskCount] = new ToDos(command);
+                    } else if (command.contains("deadline")) {
+                        commandList[taskCount] = new Deadlines(command);
+                    } else if (command.contains("event")) {
+                        commandList[taskCount] = new Events(command);
+                    }
+                    System.out.println(line + spaces + "Got it. I've added this task:");
+                    System.out.print(spaces + spaces);
+                    commandList[taskCount].printTask();
+                    System.out.println("\n" + spaces + "Now you have " + (taskCount + 1)
+                            + " tasks in the list.\n" + line);
+                    taskCount++;
                 }
-                System.out.println(line + spaces + "Got it. I've added this task:");
-                System.out.print(spaces + spaces);
-                commandList[taskCount].printTask();
-                System.out.println("\n" + spaces + "Now you have " + (taskCount+1)
-                        + " tasks in the list.\n" + line);
-                taskCount ++;
-            }else{
-                System.out.println("Invalid Command");
+                catch (StringIndexOutOfBoundsException e){
+                    System.out.println(line + spaces + "☹ OOPS!!! The description do not fulfil the specific task requirement.\n" + line);
+                }
+                catch (EmptyTaskException e){
+                    System.out.println(line + spaces + "☹ OOPS!!! The description of a " + e.taskType + " cannot be empty.\n" + line);
+                }
+            }else {
+                System.out.println(line + spaces + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
             }
         }
     }
