@@ -1,4 +1,9 @@
-public class Events extends Task{
+package Duke.task;
+
+import Duke.task.Task;
+import Duke.task.TaskType;
+
+public class Events extends Task {
     private final String time;
 
     public Events(String command) throws EmptyTaskException {
@@ -6,7 +11,7 @@ public class Events extends Task{
         time = getTime(command);
     }
 
-    public static String getTask(String command) throws EmptyTaskException{
+    public static String getTask(String command) throws EmptyTaskException {
         if ((( command.replace("event", "")).replace(" ", "")).isEmpty()){
             throw new EmptyTaskException("event");
         }else {

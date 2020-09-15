@@ -1,12 +1,18 @@
-public class Deadlines extends Task{
+package Duke.task;
+
+import Duke.task.EmptyTaskException;
+import Duke.task.Task;
+import Duke.task.TaskType;
+
+public class Deadlines extends Task {
     private final String deadline;
 
-    public Deadlines(String command) throws EmptyTaskException{
+    public Deadlines(String command) throws EmptyTaskException {
         super(getTask(command), TaskType.D);
         this.deadline = getDeadline(command);
     }
 
-    public static String getTask(String command) throws EmptyTaskException{
+    public static String getTask(String command) throws EmptyTaskException {
         if(((command.replace("deadline", "")).replace(" ", "")).isEmpty()) {
             throw new EmptyTaskException("deadline");
         }else {
