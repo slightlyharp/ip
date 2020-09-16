@@ -1,14 +1,21 @@
 package Duke.task;
 
-public class Task {
+public abstract class Task {
+
     public String task;
-    private boolean isDone;
-    private TaskType taskType;
+    public boolean isDone;
+    public TaskType taskType;
 
     public Task(String task, TaskType taskType){
             this.task = task;
             this.isDone = false;
             this.taskType = taskType;
+    }
+
+    public Task(String task, TaskType taskType, boolean isDone){
+        this.task = task;
+        this.isDone = isDone;
+        this.taskType = taskType;
     }
 
     public String getStatusIcon(){
@@ -22,6 +29,8 @@ public class Task {
     public void printTask(){
         System.out.print("[" + taskType + "]" + getStatusIcon() + task );
     }
+
+    public abstract String getTime();
 
 }
 

@@ -1,8 +1,5 @@
 package Duke.task;
 
-import Duke.task.EmptyTaskException;
-import Duke.task.Task;
-import Duke.task.TaskType;
 
 public class Deadlines extends Task {
     private final String deadline;
@@ -12,7 +9,12 @@ public class Deadlines extends Task {
         this.deadline = getDeadline(command);
     }
 
-    public static String getTask(String command) throws EmptyTaskException {
+    public Deadlines(boolean isDone, String task, String deadline){
+        super(task,TaskType.D, isDone);
+        this.deadline = deadline;
+    }
+
+    public static String getTask(String command) throws EmptyTaskException{
         if(((command.replace("deadline", "")).replace(" ", "")).isEmpty()) {
             throw new EmptyTaskException("deadline");
         }else {
@@ -24,7 +26,12 @@ public class Deadlines extends Task {
 
     public static String getDeadline(String command){
         int byIndex = command.indexOf("/by");
-        return command.substring(byIndex + 4, command.length());
+        return command.substring(byIndex + 4);
+    }
+
+    @Override
+    public String getTime() {
+        return deadline;
     }
 
     @Override
