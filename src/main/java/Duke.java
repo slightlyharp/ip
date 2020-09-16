@@ -1,6 +1,11 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    public static ArrayList<Task> taskList;
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -16,9 +21,10 @@ public class Duke {
         String line = "    ____________________________________________________________\n";
         String command = "null";
         String spaces = "    ";
-        Task[] commandList = new Task[100];
-        int taskCount = 0;
+        taskList = new ArrayList<>();
         Scanner in = new Scanner(System.in);
+
+        FileClass file = new FileClass("data/tasks.txt");
 
         System.out.println(greeting);
         while (!command.equals("bye")) {
@@ -28,33 +34,43 @@ public class Duke {
             } else if(command.equals("list")){
                 System.out.print(line);
                 System.out.println(spaces + "Here are the tasks in your list:");
-                for(int i=0; i<taskCount; i++){
+                for(int i = 0; i< taskList.size(); i++){
                     System.out.print("    " + (i+1) + ".");
-                    commandList[i].printTask();
+                    taskList.get(i).printTask();
                     System.out.println();
                 }
                 System.out.println(line);
             } else if(command.contains("done")){
                 int taskIndex = Integer.parseInt(command.replaceAll("[^0-9]", ""));
                 taskIndex--;
-                commandList[taskIndex].markDone();
+                taskList.get(taskIndex).markDone();
+                try{
+                    FileWriter fw = new FileWriter("data/tasks.txt");
+                    fw.write("");
+                    fw.close();
+                } catch (IOException e){
+                    System.out.println("Something went wrong" + e.getMessage());
+                }
+                for(Task task: taskList){
+                    file.writeFile(task);
+                }
                 System.out.println(line + "    Nice! I've marked this task as done:\n    "
-                        + commandList[taskIndex].getStatusIcon() + commandList[taskIndex].task );
-            } else if(command.contains("todo")||command.contains("deadline")||command.contains("event")){
+                        + taskList.get(taskIndex).getStatusIcon() + taskList.get(taskIndex).task );
+            } else if(command.contains("todo")|| command.contains("deadline")|| command.contains("event")){
                 try {
                     if (command.contains("todo")) {
-                        commandList[taskCount] = new ToDos(command);
+                        taskList.add(new ToDos(command));
                     } else if (command.contains("deadline")) {
-                        commandList[taskCount] = new Deadlines(command);
+                        taskList.add(new Deadlines(command));
                     } else if (command.contains("event")) {
-                        commandList[taskCount] = new Events(command);
+                        taskList.add(new Events(command));
                     }
+                    file.writeFile(taskList.get(taskList.size()-1));
                     System.out.println(line + spaces + "Got it. I've added this task:");
                     System.out.print(spaces + spaces);
-                    commandList[taskCount].printTask();
-                    System.out.println("\n" + spaces + "Now you have " + (taskCount + 1)
+                    taskList.get(taskList.size()-1).printTask();
+                    System.out.println("\n" + spaces + "Now you have " + taskList.size()
                             + " tasks in the list.\n" + line);
-                    taskCount++;
                 }
                 catch (StringIndexOutOfBoundsException e){
                     System.out.println(line + spaces + "☹ OOPS!!! The description do not fulfil the specific task requirement.\n" + line);
