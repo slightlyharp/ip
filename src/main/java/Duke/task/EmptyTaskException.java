@@ -1,3 +1,5 @@
+package Duke.task;
+
 public class EmptyTaskException extends Exception {
     public String taskType;
 

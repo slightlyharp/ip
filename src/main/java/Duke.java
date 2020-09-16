@@ -1,4 +1,11 @@
+import Duke.task.Deadlines;
+import Duke.task.EmptyTaskException;
+import Duke.task.Events;
+import Duke.task.Task;
+import Duke.task.ToDos;
+
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
@@ -16,8 +23,8 @@ public class Duke {
         String line = "    ____________________________________________________________\n";
         String command = "null";
         String spaces = "    ";
-        Task[] commandList = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> commandList = new ArrayList<>();
+
         Scanner in = new Scanner(System.in);
 
         System.out.println(greeting);
@@ -28,33 +35,32 @@ public class Duke {
             } else if(command.equals("list")){
                 System.out.print(line);
                 System.out.println(spaces + "Here are the tasks in your list:");
-                for(int i=0; i<taskCount; i++){
+                for(int i=0; i< commandList.size(); i++){
                     System.out.print("    " + (i+1) + ".");
-                    commandList[i].printTask();
+                    commandList.get(i).printTask();
                     System.out.println();
                 }
                 System.out.println(line);
             } else if(command.contains("done")){
                 int taskIndex = Integer.parseInt(command.replaceAll("[^0-9]", ""));
                 taskIndex--;
-                commandList[taskIndex].markDone();
+                commandList.get(taskIndex).markDone();
                 System.out.println(line + "    Nice! I've marked this task as done:\n    "
-                        + commandList[taskIndex].getStatusIcon() + commandList[taskIndex].task );
+                        + commandList.get(taskIndex).getStatusIcon() + commandList.get(taskIndex).task );
             } else if(command.contains("todo")||command.contains("deadline")||command.contains("event")){
                 try {
                     if (command.contains("todo")) {
-                        commandList[taskCount] = new ToDos(command);
+                        commandList.add(new ToDos(command));
                     } else if (command.contains("deadline")) {
-                        commandList[taskCount] = new Deadlines(command);
+                        commandList.add(new Deadlines(command));
                     } else if (command.contains("event")) {
-                        commandList[taskCount] = new Events(command);
+                        commandList.add(new Events(command));
                     }
                     System.out.println(line + spaces + "Got it. I've added this task:");
                     System.out.print(spaces + spaces);
-                    commandList[taskCount].printTask();
-                    System.out.println("\n" + spaces + "Now you have " + (taskCount + 1)
+                    commandList.get(commandList.size()-1).printTask();
+                    System.out.println("\n" + spaces + "Now you have " + commandList.size()
                             + " tasks in the list.\n" + line);
-                    taskCount++;
                 }
                 catch (StringIndexOutOfBoundsException e){
                     System.out.println(line + spaces + "☹ OOPS!!! The description do not fulfil the specific task requirement.\n" + line);
@@ -62,6 +68,14 @@ public class Duke {
                 catch (EmptyTaskException e){
                     System.out.println(line + spaces + "☹ OOPS!!! The description of a " + e.taskType + " cannot be empty.\n" + line);
                 }
+            } else if(command.contains("delete")){
+                int taskIndex = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+                taskIndex--;
+                System.out.print(line + "    Noted. I've removed this task:\n    ");
+                commandList.get(taskIndex).printTask();
+                System.out.println("\n    Now you have " + (commandList.size()-1) + " tasks in the list.");
+                commandList.remove(taskIndex);
+                System.out.println(line);
             }else {
                 System.out.println(line + spaces + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
             }
