@@ -36,19 +36,22 @@ public class FileClass {
             Scanner s = new Scanner(tasks);
             while (s.hasNext()){
                 String command = s.nextLine();
-                String[] words = command.split("\\|",-1);
-                switch (words[0]) {
-                case "T":
-                    Duke.taskList.add(new ToDos(Boolean.parseBoolean(words[1]),
-                            words[2]));
+                String[] words = command.split("\\|");
+                TaskType taskType = TaskType.valueOf(words[0]);
+                String taskStatus = words[1];
+                String taskName = words[2];
+                switch (taskType) {
+                case T:
+                    Duke.taskList.add(new ToDos(Boolean.parseBoolean(taskStatus),
+                            taskName));
                     break;
-                case "D":
-                    Duke.taskList.add(new Deadlines(Boolean.parseBoolean(words[1]),
-                            words[2], words[3]));
+                case D:
+                    Duke.taskList.add(new Deadlines(Boolean.parseBoolean(taskStatus),
+                            taskName, words[3]));
                     break;
-                case "E":
-                    Duke.taskList.add(new Events(Boolean.parseBoolean(words[1]),
-                            words[2], words[3]));
+                case E:
+                    Duke.taskList.add(new Events(Boolean.parseBoolean(taskStatus),
+                            taskName, words[3]));
                     break;
                 default:
                     System.out.println("OOPS something wrong with the data file");
@@ -63,7 +66,7 @@ public class FileClass {
 
     public void writeFile(Task task){
         try{
-            FileWriter fw = new FileWriter("data/tasks.txt", true);
+            FileWriter fw = new FileWriter("tasks.txt", true);
             if(task.taskType.equals(TaskType.T)){
                 fw.write("T|" + task.isDone + "|" + task.task
                         + System.lineSeparator());
