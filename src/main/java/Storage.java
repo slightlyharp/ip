@@ -1,6 +1,3 @@
-import Duke.task.Deadlines;
-import Duke.task.Events;
-import Duke.task.ToDos;
 import Duke.task.TaskType;
 import Duke.task.Task;
 
@@ -10,18 +7,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FileClass {
+public class Storage {
 
-    public static File tasks;
+    private static File taskFile;
+    private final String filePath;
 
-    public FileClass(String filePath){
-        tasks = new File(filePath);
+    public Storage(String filePath){
+        this.filePath = filePath;
+        taskFile = new File(filePath);
         checkFile();
     }
 
     public void checkFile(){
         try{
-            if(tasks.createNewFile()){
+            if(taskFile.createNewFile()){
                 System.out.println("New file created for task list");
             }else {
                 loadFile();
@@ -33,30 +32,10 @@ public class FileClass {
 
     public void loadFile(){
         try{
-            Scanner s = new Scanner(tasks);
+            Scanner s = new Scanner(taskFile);
             while (s.hasNext()){
                 String command = s.nextLine();
-                String[] words = command.split("\\|");
-                TaskType taskType = TaskType.valueOf(words[0]);
-                String taskStatus = words[1];
-                String taskName = words[2];
-                switch (taskType) {
-                case T:
-                    Duke.taskList.add(new ToDos(Boolean.parseBoolean(taskStatus),
-                            taskName));
-                    break;
-                case D:
-                    Duke.taskList.add(new Deadlines(Boolean.parseBoolean(taskStatus),
-                            taskName, words[3]));
-                    break;
-                case E:
-                    Duke.taskList.add(new Events(Boolean.parseBoolean(taskStatus),
-                            taskName, words[3]));
-                    break;
-                default:
-                    System.out.println("OOPS something wrong with the data file");
-                    break;
-                }
+                Parser.fileParser(command);
             }
         }
         catch (FileNotFoundException e){
@@ -64,9 +43,9 @@ public class FileClass {
         }
     }
 
-    public void writeFile(Task task){
+    public static void writeFile(Task task){
         try{
-            FileWriter fw = new FileWriter("tasks.txt", true);
+            FileWriter fw = new FileWriter(filePath, true);
             if(task.taskType.equals(TaskType.T)){
                 fw.write("T|" + task.isDone + "|" + task.task
                         + System.lineSeparator());
@@ -81,6 +60,19 @@ public class FileClass {
         }
         catch (IOException e){
             System.out.println("Something went wrong" + e.getMessage());
+        }
+    }
+
+    public static void rewriteFile() {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong" + e.getMessage());
+        }
+        for (Task task : TaskList.taskList) {
+            writeFile(task);
         }
     }
 }
