@@ -1,27 +1,26 @@
-import Duke.task.Task;
-
-import java.util.Scanner;
-
 public class Duke {
 
-    private TaskList tasks;
-    private Ui ui;
-    private Storage file;
-    private Parser parser;
+    public static TaskList tasks;
+    public static Storage file;
+    private static Ui ui;
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
+        tasks = new TaskList();
         file = new Storage("tasks.txt");
-        ui = new Ui(tasks);
-
+        ui = new Ui();
+        Ui.printGreeting();
         run();
+        Ui.printBye();
+
     }
 
     public static void run(){
         boolean isExit = false;
         while (!isExit){
-            isExit = Ui.readCommand();
+            isExit = ui.readCommand();
         }
     }
+
 
 
 

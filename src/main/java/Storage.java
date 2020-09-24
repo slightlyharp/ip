@@ -43,7 +43,7 @@ public class Storage {
         }
     }
 
-    public static void writeFile(Task task){
+    public void writeFile(Task task){
         try{
             FileWriter fw = new FileWriter(filePath, true);
             if(task.taskType.equals(TaskType.T)){
@@ -63,7 +63,7 @@ public class Storage {
         }
     }
 
-    public static void rewriteFile() {
+    public void rewriteFile() {
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write("");
@@ -71,7 +71,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Something went wrong" + e.getMessage());
         }
-        for (Task task : TaskList.taskList) {
+        for (Task task : Duke.tasks.taskList) {
             writeFile(task);
         }
     }

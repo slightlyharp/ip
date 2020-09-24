@@ -2,13 +2,10 @@ import java.util.Scanner;
 
 public class Ui {
 
-    private static Scanner in;
-    public TaskList taskList;
+    private final Scanner in;
 
-    public Ui(TaskList taskList){
-        this.taskList = taskList;
+    public Ui(){
         in = new Scanner(System.in);
-
     }
 
     public static void printGreeting(){
@@ -20,7 +17,7 @@ public class Ui {
         System.out.println(Messages.bye);
     }
 
-    public static boolean readCommand(){
+    public boolean readCommand(){
         String command = in.nextLine();
         if(command.equals("bye")){
             return true;
