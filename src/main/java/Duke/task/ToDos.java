@@ -1,9 +1,5 @@
 package Duke.task;
 
-import Duke.task.EmptyTaskException;
-import Duke.task.Task;
-import Duke.task.TaskType;
-
 public class ToDos extends Task {
     public ToDos(String command) throws EmptyTaskException {
         super(getTask(command), TaskType.T);
@@ -24,6 +20,11 @@ public class ToDos extends Task {
 
     @Override
     public String getTime() {
+        return null;
+    }
+
+    @Override
+    public String saveTime() {
         return null;
     }
 }
