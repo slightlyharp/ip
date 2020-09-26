@@ -1,5 +1,8 @@
 package Duke.task;
 
+/**
+ * represent a task add by user
+ */
 public abstract class Task {
 
     public String task;

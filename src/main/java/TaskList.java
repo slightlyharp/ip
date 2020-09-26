@@ -2,6 +2,10 @@ import Duke.task.*;
 
 import java.util.ArrayList;
 
+/**
+ *Represent the list of tasks recorded
+ * contains operation to edit the list
+ */
 public class TaskList {
 
     public ArrayList<Task> taskList;
@@ -10,11 +14,19 @@ public class TaskList {
         taskList = new ArrayList<>();
     }
 
+    /**
+     * display all the tasks store in the task list
+     */
     public void printList() {
         System.out.println(Messages.listMessage);
         printList(taskList);
     }
 
+    /**
+     *Change the status of isDone of the particular task in the list from false to true
+     *
+     * @param command User input that contain keyword "done" and a number correspond to the index to the task
+     */
     public void markDone(String command) {
         int taskIndex = Integer.parseInt(command.replaceAll("[^0-9]", ""));
         taskIndex--;
@@ -25,6 +37,11 @@ public class TaskList {
                 + taskList.get(taskIndex).task );
     }
 
+    /**
+     * Add a new task to the task list
+     *
+     * @param command user input that contain the task type key word, task name and time
+     */
     public void addTask(String command) {
         try {
             if (command.contains("todo")) {
@@ -52,6 +69,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * delete a specific tasks from the list
+     *
+     * @param command user input that contain key word "delete" and the index of the specific task
+     */
     public void deleteTask(String command) {
         int taskIndex = Integer.parseInt(command.replaceAll("[^0-9]", ""));
         taskIndex--;

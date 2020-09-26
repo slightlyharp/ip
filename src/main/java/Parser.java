@@ -3,8 +3,10 @@ import Duke.task.Events;
 import Duke.task.TaskType;
 import Duke.task.ToDos;
 
+/**
+ * Methods need to parse commend input by user or message from the file storing tasks
+ */
 public class Parser {
-
 
     public static void commandParser(String command){
         String[] words = command.split(" ");
