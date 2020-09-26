@@ -34,7 +34,7 @@ public class TaskList {
         taskList.get(taskIndex).markDone();
         Duke.file.rewriteFile();
         System.out.println(Messages.markDoneMessage + taskList.get(taskIndex).getStatusIcon()
-                + taskList.get(taskIndex).task );
+                + taskList.get(taskIndex).task + "\n" + Messages.line);
     }
 
     /**

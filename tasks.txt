@@ -1,3 +1,2 @@
-T|true|return book
-T|true|homework
-D|false|hi|tmr
+E|false|project meeting|Mon 2-4pm
+D|false|submit report|2019-10-11T17:00:00
