@@ -13,7 +13,6 @@ public class Ui {
     }
 
     public static void printBye(){
-
         System.out.println(Messages.bye);
     }
 

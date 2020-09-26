@@ -7,6 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represent the file the that the data going to saved to
+ * contain methods to edit the file
+ */
 public class Storage {
 
     private static File taskFile;
@@ -18,6 +22,10 @@ public class Storage {
         checkFile();
     }
 
+    /**
+     * check if the file already exist if it exist load the file content into the task list
+     * if the file do not exist create a new file under the filepath
+     */
     public void checkFile(){
         try{
             if(taskFile.createNewFile()){
@@ -30,7 +38,7 @@ public class Storage {
         }
     }
 
-    public void loadFile(){
+    private void loadFile(){
         try{
             Scanner s = new Scanner(taskFile);
             while (s.hasNext()){
@@ -43,6 +51,10 @@ public class Storage {
         }
     }
 
+    /**
+     * write the newly added task to the file
+     * @param task new tasks need to be written to the file
+     */
     public void writeFile(Task task){
         try{
             FileWriter fw = new FileWriter(filePath, true);
@@ -63,6 +75,9 @@ public class Storage {
         }
     }
 
+    /**
+     * clear all the content in the file and rewrite the the list to the file
+     */
     public void rewriteFile() {
         try {
             FileWriter fw = new FileWriter(filePath);

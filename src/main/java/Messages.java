@@ -1,3 +1,6 @@
+/**
+ * contains messages need-ed to be output in different situations
+ */
 public class Messages {
     public static final String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
