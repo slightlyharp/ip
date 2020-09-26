@@ -1,8 +1,4 @@
-import Duke.task.Deadlines;
-import Duke.task.EmptyTaskException;
-import Duke.task.Events;
-import Duke.task.Task;
-import Duke.task.ToDos;
+import Duke.task.*;
 
 import java.util.ArrayList;
 
@@ -73,6 +69,9 @@ public class TaskList {
         catch (EmptyTaskException e){
             System.out.println(Messages.emptyTaskMessage);
         }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Invalid date and time format");
+        }
     }
 
     /**
@@ -83,11 +82,11 @@ public class TaskList {
     public void deleteTask(String command) {
         int taskIndex = Integer.parseInt(command.replaceAll("[^0-9]", ""));
         taskIndex--;
-        Duke.file.rewriteFile();
         System.out.print(Messages.deleteMessage);
         taskList.get(taskIndex).printTask();
         System.out.println("\n    Now you have " + (taskList.size()-1) + " tasks in the list.");
         taskList.remove(taskIndex);
+        Duke.file.rewriteFile();
         System.out.println(Messages.line);
     }
 }

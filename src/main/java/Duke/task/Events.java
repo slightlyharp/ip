@@ -71,4 +71,9 @@ public class Events extends Task {
     public String getTime() {
         return time;
     }
+
+    @Override
+    public String saveTime() {
+        return null;
+    }
 }

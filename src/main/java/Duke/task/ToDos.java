@@ -1,5 +1,6 @@
 package Duke.task;
 
+
 /**
  * Represent a task that need to be done
  */
@@ -44,6 +45,11 @@ public class ToDos extends Task {
      */
     @Override
     public String getTime() {
+        return null;
+    }
+
+    @Override
+    public String saveTime() {
         return null;
     }
 }

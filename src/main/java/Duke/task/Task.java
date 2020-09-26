@@ -35,5 +35,7 @@ public abstract class Task {
 
     public abstract String getTime();
 
+    public abstract String saveTime();
+
 }
 
