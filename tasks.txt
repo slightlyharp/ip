@@ -1,0 +1,3 @@
+T|true|return book
+T|true|homework
+D|false|hi|tmr

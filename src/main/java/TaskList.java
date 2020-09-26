@@ -19,12 +19,7 @@ public class TaskList {
      */
     public void printList() {
         System.out.println(Messages.listMessage);
-        for(int i = 0; i< taskList.size(); i++){
-            System.out.print("    " + (i+1) + ".");
-            taskList.get(i).printTask();
-            System.out.println();
-        }
-        System.out.println(Messages.line);
+        printList(taskList);
     }
 
     /**
@@ -87,6 +82,31 @@ public class TaskList {
         System.out.println("\n    Now you have " + (taskList.size()-1) + " tasks in the list.");
         taskList.remove(taskIndex);
         Duke.file.rewriteFile();
+        System.out.println(Messages.line);
+    }
+
+    public void findTask(String key){
+        ArrayList<Task> results = new ArrayList<>();
+        for(Task task: taskList){
+            if(task.task.contains(key)){
+                results.add(task);
+            }
+        }
+        if(results.isEmpty()) {
+            System.out.println(Messages.noResultMessage);
+        }else {
+            System.out.println(Messages.searchMessage);
+            printList(results);
+        }
+
+    }
+
+    public void printList(ArrayList<Task> list) {
+        for(int i = 0; i< list.size(); i++){
+            System.out.print("    " + (i+1) + ".");
+            list.get(i).printTask();
+            System.out.println();
+        }
         System.out.println(Messages.line);
     }
 }
