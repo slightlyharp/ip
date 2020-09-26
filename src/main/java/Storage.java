@@ -51,7 +51,7 @@ public class Storage {
                         + System.lineSeparator());
             }else if(task.taskType.equals(TaskType.D)){
                 fw.write("D|" + task.isDone + "|" + task.task + "|"
-                        + task.getTime()+ System.lineSeparator());
+                        + task.saveTime()+ System.lineSeparator());
             }else if(task.taskType.equals(TaskType.E)) {
                 fw.write("E|" + task.isDone + "|" + task.task + "|"
                         + task.getTime()+ System.lineSeparator());
