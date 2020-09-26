@@ -13,6 +13,8 @@ public class Messages {
     public static final String line = "    ____________________________________________________________\n";
     public static final String spaces = "    ";
     public static final String listMessage = line + spaces + "Here are the tasks in your list:";
+    public static final String searchMessage = line + spaces + "Here are the matching tasks in your list:";
+    public static final String noResultMessage = line + spaces + "There is no matching tasks\n" + line;
     public static final String markDoneMessage = line + "    Nice! I've marked this task as done:\n    ";
     public static final String deleteMessage = line + "    Noted. I've removed this task:\n    ";
     public static final String addTaskMessage = line + spaces + "Got it. I've added this task:\n" + spaces + spaces;

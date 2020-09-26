@@ -21,6 +21,8 @@ public class Parser {
             break;
         case "delete": Duke.tasks.deleteTask(command);
             break;
+        case "find": Duke.tasks.findTask(command.replace("find ", ""));
+            break;
         default: System.out.println(Messages.line + Messages.spaces
                 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Messages.line);
         }
